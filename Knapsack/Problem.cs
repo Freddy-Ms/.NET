@@ -32,6 +32,7 @@ namespace Knapsack
             {
                 items.Add(new Items(random.Next(1, maxWeight), random.Next(1, maxValue)));
             }
+            SortByValueToWeightRatio();
 
         }
         public override string ToString()
