@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156 d17.13
+VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knapsack", "Knapsack.csproj", "{3D56496D-1AD6-493A-8AEA-A81562E65789}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "..\TestProject\TestProject.csproj", "{6286FB95-8FBF-47A3-BF7A-2BFC49AF4CD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3D56496D-1AD6-493A-8AEA-A81562E65789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D56496D-1AD6-493A-8AEA-A81562E65789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D56496D-1AD6-493A-8AEA-A81562E65789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6286FB95-8FBF-47A3-BF7A-2BFC49AF4CD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6286FB95-8FBF-47A3-BF7A-2BFC49AF4CD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6286FB95-8FBF-47A3-BF7A-2BFC49AF4CD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6286FB95-8FBF-47A3-BF7A-2BFC49AF4CD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

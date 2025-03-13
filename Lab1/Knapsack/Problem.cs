@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+[assembly: InternalsVisibleTo("TestProject")]
 namespace Knapsack
 {
     class Problem
@@ -13,6 +14,7 @@ namespace Knapsack
         private int maxWeight;
         private int maxValue;
         private List<Items> items;
+        //for console app
         public Problem(int totalItems, int maxWeight, int maxValue, int seed)
         {
             this.totalItems = totalItems;
@@ -21,6 +23,13 @@ namespace Knapsack
             items = new List<Items>();
             this.generateItems(seed);
         }
+        //for tests
+        public Problem(int totalItems, List<Items> items)
+        {
+            this.totalItems = totalItems;
+            this.items = items;
+        }
+
         public int TotalItems { get { return totalItems; } }
         public int MaxWeight { get { return maxWeight; } }
         public List<Items> Items { get { return items; } }
@@ -39,12 +48,12 @@ namespace Knapsack
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Total Items: " + totalItems);
-            sb.AppendLine("Max Weight: " + maxWeight);
-            sb.AppendLine("Max Value: " + maxValue);
+            sb.AppendLine("Max Possible Weight: " + maxWeight);
+            sb.AppendLine("Max Possible Value: " + maxValue);
             sb.AppendLine("Items:");
             for(int i = 0; i < this.totalItems; i++) 
             {
-                sb.AppendLine("Nr: " + (i+1) + "Weight: " + items[i].Weight + " Value: " + items[i].Value);
+                sb.AppendLine("Nr: " + (i+1) + " Weight: " + items[i].Weight + " Value: " + items[i].Value);
             }
             return sb.ToString();
         }
