@@ -10,68 +10,62 @@ namespace Knapsack
 {
     class Problem
     {
-        private int totalItems;
+        private int numberOfItems;
         private int maxWeight;
         private int maxValue;
-        private List<Items> items;
+        private List<Item> items;
         //for console app
-        public Problem(int totalItems, int maxWeight, int maxValue, int seed)
+        public Problem(int numberOfItems, int maxWeight, int maxValue, int seed)
         {
-            this.totalItems = totalItems;
+            this.numberOfItems = numberOfItems;
             this.maxWeight = maxWeight;
             this.maxValue = maxValue;
-            items = new List<Items>();
+            items = new List<Item>();
             this.generateItems(seed);
         }
         //for tests
-        public Problem(int totalItems, List<Items> items)
+        public Problem(int numberOfItems, List<Item> items)
         {
-            this.totalItems = totalItems;
+            this.numberOfItems = numberOfItems;
             this.items = items;
         }
-
-        public int TotalItems { get { return totalItems; } }
-        public int MaxWeight { get { return maxWeight; } }
-        public List<Items> Items { get { return items; } }
 
         private void generateItems(int seed)
         {
             Random random = new Random(seed);
-            for (int i = 0; i < totalItems; i++)
+            for (int i = 0; i < numberOfItems; i++)
             {
-                items.Add(new Items(random.Next(1, maxWeight), random.Next(1, maxValue)));
+                items.Add(new Item((i+1),random.Next(1, maxWeight), random.Next(1, maxValue)));
             }
-            SortByValueToWeightRatio();
-
         }
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Total Items: " + totalItems);
+            sb.AppendLine("Total Items: " + numberOfItems);
             sb.AppendLine("Max Possible Weight: " + maxWeight);
             sb.AppendLine("Max Possible Value: " + maxValue);
             sb.AppendLine("Items:");
-            for(int i = 0; i < this.totalItems; i++) 
+            for(int i = 0; i < this.numberOfItems; i++) 
             {
-                sb.AppendLine("Nr: " + (i+1) + " Weight: " + items[i].Weight + " Value: " + items[i].Value);
+                sb.AppendLine("Nr: " + items[i].Index + " Weight: " + items[i].Weight + " Value: " + items[i].Value);
             }
             return sb.ToString();
         }
         private void SortByValueToWeightRatio()
         {
-            items.Sort((x, y) => (y.Value / (double)y.Weight).CompareTo(x.Value / (double)x.Weight));
+            items.Sort((x, y) => (y.ValueToWeightRatio).CompareTo(x.ValueToWeightRatio));
         }
         public Result Solve(int capacity)
         {
-            
-            List<int> takeItems = new List<int>();
+            SortByValueToWeightRatio();
+            List<Item> takeItems = new List<Item>();
             int totalWeight = 0;
             int totalValue = 0;
-            for(int i = 0; i < this.totalItems;i++)
+            for(int i = 0; i < this.numberOfItems;i++)
             {
                 if (totalWeight + items[i].Weight <= capacity)
                 {
-                    takeItems.Add(i+1);
+                    takeItems.Add(items[i]);
                     totalWeight += items[i].Weight;
                     totalValue += items[i].Value;
                 }
@@ -79,8 +73,8 @@ namespace Knapsack
             return new Result(totalValue, totalWeight, takeItems);
 
         }
+       
 
-            
 
     }
 }

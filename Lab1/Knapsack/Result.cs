@@ -10,15 +10,13 @@ namespace Knapsack
     {
         private int totalValue;
         private int totalWeight;
-        private int[] takeItems;
+        private List<Item> takeItems;
         public int TotalValue { get { return totalValue; } }
-        public int TotalWeight { get { return totalWeight; } }
-        public int[] TakeItems { get { return takeItems; } }
-        public Result(int totalValue, int totalWeight, List<int> takeItems)
+        public Result(int totalValue, int totalWeight, List<Item> takeItems)
         {
             this.totalValue = totalValue;
             this.totalWeight = totalWeight;
-            this.takeItems = takeItems.ToArray();
+            this.takeItems = takeItems;
         }
         public override string ToString()
         {
@@ -26,15 +24,24 @@ namespace Knapsack
             sb.AppendLine("Total Value: " + totalValue);
             sb.AppendLine("Total Weight: " + totalWeight);
             sb.AppendLine("Take Items:");
-            for (int i = 0; i < takeItems.Length; i++)
+            for (int i = 0; i < takeItems.Count; i++)
             {
-                sb.AppendLine("Nr: " + takeItems[i]);
+                sb.AppendLine("Nr: " + takeItems[i].Index);
             }
             return sb.ToString();
         }
         public int nrOfItems()
         {
-            return takeItems.Length;
+            return takeItems.Count;
+        }
+
+        public int GetTotalWeight()
+        {
+            return totalWeight;
+        }
+        public List<Item> GetItems()
+        {
+            return takeItems;
         }
     }
 }
