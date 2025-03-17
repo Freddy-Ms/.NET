@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knapsack", "Knapsack.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "..\TestProject\TestProject.csproj", "{6286FB95-8FBF-47A3-BF7A-2BFC49AF4CD3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "..\GUI\GUI.csproj", "{B59B4CF0-3646-47B4-A9DF-9CC6B495994C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6286FB95-8FBF-47A3-BF7A-2BFC49AF4CD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6286FB95-8FBF-47A3-BF7A-2BFC49AF4CD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6286FB95-8FBF-47A3-BF7A-2BFC49AF4CD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B59B4CF0-3646-47B4-A9DF-9CC6B495994C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B59B4CF0-3646-47B4-A9DF-9CC6B495994C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B59B4CF0-3646-47B4-A9DF-9CC6B495994C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B59B4CF0-3646-47B4-A9DF-9CC6B495994C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
