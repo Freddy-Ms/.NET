@@ -33,18 +33,16 @@
             MaxValue = new TextBox();
             MaxWeight = new TextBox();
             Capacity = new TextBox();
-            label1 = new Label();
             LabelMaxValue = new Label();
             LabelMaxWeight = new Label();
             LabelCapacity = new Label();
             SeedLabel = new Label();
             nrOfItems = new TextBox();
-            label2 = new Label();
-            label4 = new Label();
-            label3 = new Label();
+            NrOfItemsLabel = new Label();
+            InstanceLabel = new Label();
             InstanceTextBox = new RichTextBox();
-            richTextBox1 = new RichTextBox();
-            label5 = new Label();
+            ResultTextBox = new RichTextBox();
+            ResultsLabel = new Label();
             SuspendLayout();
             // 
             // SumbitButton
@@ -90,15 +88,6 @@
             Capacity.TabIndex = 4;
             Capacity.TextChanged += isGreaterOrEqual0;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(81, 40);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 15);
-            label1.TabIndex = 5;
-            label1.Text = "label1";
-            // 
             // LabelMaxValue
             // 
             LabelMaxValue.AutoSize = true;
@@ -143,23 +132,23 @@
             nrOfItems.TabIndex = 10;
             nrOfItems.TextChanged += isGreaterThan0;
             // 
-            // label2
+            // NrOfItemsLabel
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(67, 264);
-            label2.Name = "label2";
-            label2.Size = new Size(100, 15);
-            label2.TabIndex = 11;
-            label2.Text = "Number of items:";
+            NrOfItemsLabel.AutoSize = true;
+            NrOfItemsLabel.Location = new Point(67, 264);
+            NrOfItemsLabel.Name = "NrOfItemsLabel";
+            NrOfItemsLabel.Size = new Size(100, 15);
+            NrOfItemsLabel.TabIndex = 11;
+            NrOfItemsLabel.Text = "Number of items:";
             // 
-            // label3
+            // InstanceLabel
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(377, 42);
-            label3.Name = "label3";
-            label3.Size = new Size(54, 15);
-            label3.TabIndex = 14;
-            label3.Text = "Instance:";
+            InstanceLabel.AutoSize = true;
+            InstanceLabel.Location = new Point(377, 42);
+            InstanceLabel.Name = "InstanceLabel";
+            InstanceLabel.Size = new Size(54, 15);
+            InstanceLabel.TabIndex = 14;
+            InstanceLabel.Text = "Instance:";
             // 
             // InstanceTextBox
             // 
@@ -170,35 +159,34 @@
             InstanceTextBox.TabIndex = 15;
             InstanceTextBox.Text = "";
             // 
-            // richTextBox1
+            // ResultTextBox
             // 
-            richTextBox1.Location = new Point(47, 438);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(279, 156);
-            richTextBox1.TabIndex = 16;
-            richTextBox1.Text = "";
+            ResultTextBox.Location = new Point(47, 438);
+            ResultTextBox.Name = "ResultTextBox";
+            ResultTextBox.ReadOnly = true;
+            ResultTextBox.Size = new Size(279, 156);
+            ResultTextBox.TabIndex = 16;
+            ResultTextBox.Text = "";
             // 
-            // label5
+            // ResultsLabel
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(47, 411);
-            label5.Name = "label5";
-            label5.Size = new Size(47, 15);
-            label5.TabIndex = 17;
-            label5.Text = "Results:";
+            ResultsLabel.AutoSize = true;
+            ResultsLabel.Location = new Point(47, 411);
+            ResultsLabel.Name = "ResultsLabel";
+            ResultsLabel.Size = new Size(47, 15);
+            ResultsLabel.TabIndex = 17;
+            ResultsLabel.Text = "Results:";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(624, 615);
-            Controls.Add(label5);
-            Controls.Add(richTextBox1);
+            Controls.Add(ResultsLabel);
+            Controls.Add(ResultTextBox);
             Controls.Add(InstanceTextBox);
-            Controls.Add(label3);
-            Controls.Add(label4);
-            Controls.Add(label2);
+            Controls.Add(InstanceLabel);
+            Controls.Add(NrOfItemsLabel);
             Controls.Add(nrOfItems);
             Controls.Add(SeedLabel);
             Controls.Add(LabelCapacity);
@@ -223,17 +211,15 @@
         private TextBox MaxValue;
         private TextBox MaxWeight;
         private TextBox Capacity;
-        private Label label1;
         private Label LabelMaxValue;
         private Label LabelMaxWeight;
         private Label LabelCapacity;
         private Label SeedLabel;
         private TextBox nrOfItems;
-        private Label label2;
-        private Label label4;
-        private Label label3;
+        private Label NrOfItemsLabel;
+        private Label InstanceLabel;
         private RichTextBox InstanceTextBox;
-        private RichTextBox richTextBox1;
-        private Label label5;
+        private RichTextBox ResultTextBox;
+        private Label ResultsLabel;
     }
 }

@@ -77,7 +77,7 @@ namespace GUI
                 Problem problem = new Problem(numberOfItems, maxWeight, maxValue, seed);
                 InstanceTextBox.Text = problem.ToString();
                 Result result = problem.Solve(capacity);
-                richTextBox1.Text = result.ToString();
+                ResultTextBox.Text = result.ToString();
 
             }
         }
