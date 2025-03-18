@@ -52,19 +52,20 @@ namespace TestProject
             int capacity = 50;
             List<Item> items = new List<Item>()
             {
-                new Item(1,5,5),
-                new Item(2,10,10),
+                new Item(1,5,10),
+                new Item(2,10,15),
                 new Item(3,15,15),
-                new Item(4,10,15),
-                new Item(5,13,15)
+                new Item(4,8,12),
+                new Item(5,15,10)
             };
-            int expectedTotalValue = 5 + 10 + 15 + 15; // 45
-
+            int expectedTotalValue = 10 + 15 + 15 + 12; // 52
+            int expectedTotalWeight = 5 + 10 + 15 + 8; // 38
             Problem problem = new Problem(numberOfItems, items);
             Result result = problem.Solve(capacity);
-            int output = result.TotalValue;
-
-            Assert.AreEqual(expectedTotalValue, output);
+            int outputValue = result.TotalValue;
+            int outputWeight = result.GetTotalWeight();
+            Assert.AreEqual(expectedTotalWeight, outputWeight);
+            Assert.AreEqual(expectedTotalValue, outputValue);
         }
 
         [TestMethod]
@@ -155,6 +156,7 @@ namespace TestProject
 
             Assert.AreEqual(3, result.nrOfItems());
             Assert.AreEqual(60, result.TotalValue);
+            Assert.AreEqual(30, result.GetTotalWeight());
         }
 
         [TestMethod]
@@ -173,6 +175,7 @@ namespace TestProject
 
             Assert.AreEqual(0, result.nrOfItems());
             Assert.AreEqual(0, result.TotalValue);
+            Assert.AreEqual(0, result.GetTotalWeight());
         }
         [TestMethod]
         public void TestExtremeScenario()

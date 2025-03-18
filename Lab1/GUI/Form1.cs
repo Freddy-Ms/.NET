@@ -23,9 +23,6 @@ namespace GUI
                 if (number <= 0)
                 {
                     textBox.BackColor = Color.Red;
-
-
-                    // MessageBox.Show("Wartoœæ musi byæ wiêksza od 0!", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -35,8 +32,6 @@ namespace GUI
             else
             {
                 textBox.BackColor = Color.Red;
-
-                // MessageBox.Show("Proszê wprowadziæ prawid³ow¹ liczbê!", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void isGreaterOrEqual0(object sender, EventArgs e)
@@ -47,7 +42,6 @@ namespace GUI
                 if (number < 0)
                 {
                     textBox.BackColor = Color.Red;
-                    // MessageBox.Show("Wartoœæ musi byæ wiêksza lub równa 0!", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -57,7 +51,6 @@ namespace GUI
             else
             {
                 textBox.BackColor = Color.Red;
-                // MessageBox.Show("Proszê wprowadziæ prawid³ow¹ liczbê!", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void SumbitButton_Click(object sender, EventArgs e)
