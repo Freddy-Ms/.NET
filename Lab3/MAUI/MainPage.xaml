@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.MainPage"
+             xmlns:local="clr-namespace:MAUI.Logic">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- Sekcja dodawania nowej waluty -->
+        <Label Text="Dodaj nową walutę:" FontSize="18" FontAttributes="Bold"/>
+        <HorizontalStackLayout>
+            <Entry x:Name="CurrencyCodeEntry" Placeholder="Kod (np. USD)" WidthRequest="80"/>
+            <Entry x:Name="CurrencyNameEntry" Placeholder="Nazwa (np. Dolar amerykański)" WidthRequest="200"/>
+            <Button Text="Dodaj" Clicked="OnAddCurrencyClicked"/>
+        </HorizontalStackLayout>
+
+        <!-- Sekcja konwersji waluty -->
+        <Label Text="Konwertuj walutę" FontSize="18" FontAttributes="Bold"/>
+        <HorizontalStackLayout>
+            <Label Text="Z:" VerticalOptions="Center"/>
+            <Picker x:Name="SourceCurrencyPicker" WidthRequest="150" SelectedIndex="0" SelectedIndexChanged="OnTargetCurrencyChanged">
+                <Picker.ItemsSource>
+                    <Binding Path="Currencies"/>
+                </Picker.ItemsSource>
+                <Picker.ItemDisplayBinding>
+                    <Binding Path="Code"/>
+                </Picker.ItemDisplayBinding>
+            </Picker>
+
+            <Label Text="Na:" VerticalOptions="Center"/>
+            <Picker x:Name="TargetCurrencyPicker" WidthRequest="150" SelectedIndex="0" SelectedIndexChanged="OnTargetCurrencyChanged">
+                <Picker.ItemsSource>
+                    <Binding Path="Currencies"/>
+                </Picker.ItemsSource>
+                <Picker.ItemDisplayBinding>
+                    <Binding Path="Code"/>
+                </Picker.ItemDisplayBinding>
+            </Picker>
+
+            <Entry x:Name="AmountEntry" Placeholder="Kwota" Keyboard="Numeric" WidthRequest="100"/>
+        </HorizontalStackLayout>
+
+        <!-- Wybór daty kursu -->
+        <Label Text="Wybierz datę:" VerticalOptions="Center"/>
+        <DatePicker x:Name="DatePicker" WidthRequest="150"/>
+
+        <!-- Przycisk do wykonania konwersji -->
+        <Button Text="Konwertuj" Clicked="OnConvertClicked" WidthRequest="150"/>
+
+        <!-- Wynik konwersji -->
+        <Label x:Name="ConversionResultLabel" Text="Wynik: " FontSize="16" Margin="0,20,0,0"/>
+
+        <!-- Przycisk do odświeżenia danych -->
+        <Button x:Name="RefreshButton" Text="Odśwież dane" Clicked="OnRefreshClicked" HorizontalOptions="End"/>
+
+        <!-- Lista walut -->
+        <Grid WidthRequest="500" HeightRequest="300">
+            <ScrollView>
+                <ListView x:Name="CurrencyListView" ItemsSource="{Binding Currencies}" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" Padding="5">
+                                    <Label Text="{Binding Code}" FontSize="16"/>
+                                    <Label Text=" - " FontSize="16"/>
+                                    <Label Text="{Binding Name}" FontSize="16"/>
+                                    <!-- Przycisk do usuwania waluty -->
+                                    <Button Text="Usuń" Clicked="OnDeleteCurrencyClicked" HorizontalOptions="End" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </Grid>
+        <!-- Wybór daty początkowej -->
+        <Label Text="Wybierz datę początkową:" VerticalOptions="Center"/>
+        <DatePicker x:Name="StartDatePicker" WidthRequest="150"/>
+
+        <!-- Wybór daty końcowej -->
+        <Label Text="Wybierz datę końcową:" VerticalOptions="Center"/>
+        <DatePicker x:Name="EndDatePicker" WidthRequest="150"/>
+
+        <!-- Przycisk do załadowania danych -->
+        <Button Text="Załaduj dane" Clicked="OnLoadDataClicked" WidthRequest="150"/>
+
+        <!-- Lista wyników -->
+        <ListView x:Name="ResultsListView" HasUnevenRows="True" WidthRequest="500">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding Date}" FontSize="16"/>
+                            <Label Text="{Binding Rate}" FontSize="16"/>
+                            <Label Text="{Binding TargetCurrencyCode}" FontSize="16"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+
+</ContentPage>
