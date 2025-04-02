@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.ShowDatabasePage"
+             xmlns:local="clr-namespace:MAUI.Logic">
+
+    <Grid Padding="20" RowDefinitions="Auto,*" ColumnDefinitions="*,*">
+
+        <!-- Left side: Exchange Rates List + Filters -->
+        <StackLayout Grid.Column="0" Padding="10" Spacing="15">
+            <Label Text="Exchange Rates" FontSize="18" FontAttributes="Bold"/>
+            <ScrollView HeightRequest="300">
+                <ListView x:Name="ExchangeRatesListView" ItemsSource="{Binding ExchangeRates}" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" Padding="5">
+                                    <Label Text="{Binding TargetCurrency.Code}" FontSize="16" WidthRequest ="130"/>
+                                    <Label Text="{Binding Date, StringFormat='{0:yyyy-MM-dd}'}" FontSize="16" WidthRequest ="130"/>
+                                    <Label Text="{Binding Rate}" FontSize="16" WidthRequest ="130"/>
+                                    <Button Text="Delete" Clicked="OnDeleteExchangeRateClicked" HorizontalOptions="End" Padding="0,0,10,0" WidthRequest="80"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+
+            <StackLayout Padding="10">
+                <Label Text="Filter Exchange Rates:" FontSize="18" FontAttributes="Bold"/>
+
+                <!-- Etykiety "From:" i "To:" nad DatePickerami -->
+                <HorizontalStackLayout>
+                    <Label Text="From:" VerticalOptions="Center" WidthRequest="150"/>
+                    <Label Text="To:" VerticalOptions="Center" WidthRequest="150"/>
+                    <Label Text="Currency:" VerticalOptions="Center" WidthRequest="150"/>
+                </HorizontalStackLayout>
+
+                <!-- Uk�ad DatePicker�w i CurrencyPicker -->
+                <HorizontalStackLayout>
+                    <DatePicker x:Name="StartDatePicker" WidthRequest="150" HeightRequest="40"/>
+                    <DatePicker x:Name="EndDatePicker" WidthRequest="150" HeightRequest="40"/>
+                    <Picker x:Name="CurrencyPicker"  WidthRequest="150" HeightRequest="40"/>
+                </HorizontalStackLayout>
+
+                <!-- Przycisk do zastosowania filtr�w -->
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Start" Padding="0,10,0,0">
+                    <Button Text="Apply Filters" Clicked="OnFilterExchangeRatesClicked" WidthRequest="120"/>
+                    <Button Text="Delete Filters" Clicked="DeleteFilters" WidthRequest="120"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Start" Padding="0,10,0,0">
+                    <Label Text="Add to database"  FontSize="18" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="150"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Start" Padding="0,10,0,0">
+                    <Label Text="Currency:" VerticalOptions="Center" WidthRequest="150"/>
+                    <Label Text="Date:" VerticalOptions="Center" WidthRequest="150"/>
+                    <Label Text="Rate:" VerticalOptions="Center" WidthRequest="150"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Start" Padding="0,10,0,0">
+                    <Picker x:Name="CurrencyPicker2"  WidthRequest="150"/>
+                    <DatePicker x:Name="DatePicker" WidthRequest="150" HeightRequest="40"/>
+                    <Entry x:Name="CurrencyRate"  WidthRequest="150"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Start" Padding="0,10,0,0">
+                    <Button Text="Add" Clicked="AddToDatabase" WidthRequest="150"/>
+                </HorizontalStackLayout>
+            </StackLayout>
+        </StackLayout>
+
+        <!-- Right side: Currencies List + Add/Refresh -->
+        <StackLayout Grid.Column="1" Padding="10" Spacing="15">
+            <Label Text="Currencies" FontSize="18" FontAttributes="Bold"/>
+            <ScrollView HeightRequest="300">
+                <ListView x:Name="CurrencyListView" ItemsSource="{Binding Currencies}" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" Padding="5">
+                                    <Label Text="{Binding Code}" FontSize="16" WidthRequest ="80"/>
+                                    <Label Text="{Binding Name}" FontSize="16" WidthRequest ="500"/>
+                                    <Button Text="Delete" Clicked="OnDeleteCurrencyClicked" HorizontalOptions="End" Padding="0,0,10,0" WidthRequest="80"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+
+            <!-- Buttons for Adding and Refreshing -->
+            <Button x:Name="RefreshButton" Text="Fetch Data" Clicked="OnRefreshClicked" HorizontalOptions="Center" WidthRequest="150"/>
+
+            <!-- Add new currency section -->
+            <Label Text="Add a new currency:" FontSize="18" FontAttributes="Bold"/>
+            <HorizontalStackLayout>
+                <Entry x:Name="CurrencyCodeEntry" Placeholder="Code" WidthRequest="80"/>
+                <Entry x:Name="CurrencyNameEntry" Placeholder="Name" WidthRequest="200"/>
+                <Button Text="Add" Clicked="OnAddCurrencyClicked" WidthRequest="100"/>
+            </HorizontalStackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.CurrencyConverterPage"
+             xmlns:local="clr-namespace:MAUI.Logic">
+
+    <VerticalStackLayout Padding="20" Spacing="15" HorizontalOptions="Center">
+
+        <!-- Header -->
+        <Label Text="Convert currencies from USD to another currency or from any currency to USD!" 
+               FontSize="20" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center"/>
+
+        <Label Text="Currency Converter" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+        <!-- Currency selection -->
+        <Label Text="From:" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Picker x:Name="SourceCurrencyPicker" WidthRequest="150" SelectedIndex="0" SelectedIndexChanged="OnSourceCurrencyChanged" HorizontalOptions="Center">
+            <Picker.ItemsSource>
+                <Binding Path="Currencies"/>
+            </Picker.ItemsSource>
+            <Picker.ItemDisplayBinding>
+                <Binding Path="Code"/>
+            </Picker.ItemDisplayBinding>
+        </Picker>
+
+        <Label Text="To:" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Picker x:Name="TargetCurrencyPicker" WidthRequest="150" SelectedIndex="0" SelectedIndexChanged="OnTargetCurrencyChanged" HorizontalOptions="Center">
+            <Picker.ItemsSource>
+                <Binding Path="Currencies"/>
+            </Picker.ItemsSource>
+            <Picker.ItemDisplayBinding>
+                <Binding Path="Code"/>
+            </Picker.ItemDisplayBinding>
+        </Picker>
+
+        <Entry x:Name="AmountEntry" Placeholder="Enter amount" Keyboard="Numeric" WidthRequest="200" HorizontalOptions="Center"/>
+
+        <!-- Date selection -->
+        <Label Text="Select date:" VerticalOptions="Center" HorizontalOptions="Center"/>
+        <DatePicker x:Name="DatePicker" WidthRequest="200" HorizontalOptions="Center"/>
+
+        <!-- Convert button -->
+        <Button Text="Convert" Clicked="OnConvertClicked" WidthRequest="200" HorizontalOptions="Center"/>
+
+        <!-- Conversion result -->
+        <Label x:Name="ConversionResultLabel" Text="Result: " FontSize="16" Margin="10,20,10,0" HorizontalOptions="Center"/>
+    </VerticalStackLayout>
+</ContentPage>

@@ -123,6 +123,7 @@ namespace MAUI.Logic
             return exchangeRate;
         }
 
+        
 
     }
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.DataSelectionPage"
+             xmlns:local="clr-namespace:MAUI.Logic">
+
+	<VerticalStackLayout Padding="20" Spacing="15" HorizontalOptions="Center">
+
+		<!-- Header -->
+		<Label Text="Select a date range and a currency, and I will return its exchange rate over the selected days."
+               FontSize="18"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,0,0,20"/>
+
+		<!-- Date range and currency selection -->
+		<HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+			<Label Text="From:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+			<DatePicker x:Name="StartDatePicker" WidthRequest="150"/>
+
+			<Label Text="To:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+			<DatePicker x:Name="EndDatePicker" WidthRequest="150"/>
+
+			<Label Text="Currency:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+			<Picker x:Name="CurrencyPicker" WidthRequest="150">
+				<Picker.ItemDisplayBinding>
+					<Binding Path="Code"/>
+				</Picker.ItemDisplayBinding>
+			</Picker>
+		</HorizontalStackLayout>
+
+		<!-- Buttons -->
+		<HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+			<Button Text="Load Data" Clicked="OnLoadDataClicked" WidthRequest="150"/>
+		</HorizontalStackLayout>
+
+		<!-- Results display -->
+		<Frame BorderColor="Black" CornerRadius="10" Padding="10" Margin="10" HeightRequest="500">
+			<Label Text="Results:" FontSize="16" FontAttributes="Bold"/>
+			<ScrollView>
+				<ListView x:Name="ResultsListView" ItemsSource="{Binding ExchangeRates}" HasUnevenRows="True" WidthRequest="500">
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<ViewCell>
+								<StackLayout Padding="10">
+									<Label Text="{Binding Date, StringFormat='{0:yyyy-MM-dd}'}" FontSize="16"/>
+									<Label Text="{Binding Rate}" FontSize="16"/>
+								</StackLayout>
+							</ViewCell>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+			</ScrollView>
+		</Frame>
+
+	</VerticalStackLayout>
+
+</ContentPage>
