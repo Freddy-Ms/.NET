@@ -51,7 +51,7 @@ Jeśli liczba wątków przekracza liczbę fizycznych rdzeni, CPU musi dzielić s
 
 ## Dlaczego `Parallel` działa lepiej?
 
-Większość bibliotek `Parallel`  korzysta z pul wątków i inteligentnego planowania zadań. Dzięki temu unika się kosztu ciągłego tworzenia wątków, co sprawdza się szczególnie dobrze przy małych zadaniach.
+Większość bibliotek `Parallel`  korzysta z pul wątków i inteligentnego planowania zadań. Dzięki temu unika się kosztu ciągłego tworzenia wątków.
 
 ---
 
