@@ -1,5 +1,5 @@
 # Porównanie wydajności: Parallel vs Threads
-
+Badania przeprowadzono na procesorze Intel Core i7-14700F, a wyniki przedstawiają średnią z 50-krotnego powtórzenia pomiarów. Dodatkowo, system dysponował 64 GB pamięci RAM.
 ## Tabela czasów wykonania
 
 | Rozmiar macierzy | Liczba wątków | Parallel   | Threads    |
