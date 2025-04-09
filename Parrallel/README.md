@@ -133,7 +133,7 @@ W praktyce, zbyt duża liczba wątków działa na niekorzyść — system więce
 
 ---
 
-# 3.Porównanie 'Parallel' vs 'Threads'
+# 3. Porównanie 'Parallel' vs 'Threads'
 ## Parallel:
 - Łatwiejsza w użyciu, zautomatyzowana obsługa wątków.
 - Idealna do przetwarzania dużych zbiorów danych.
@@ -146,3 +146,85 @@ W praktyce, zbyt duża liczba wątków działa na niekorzyść — system więce
 - Można osiągnąć lepszą wydajność w specyficznych, bardziej złożonych scenariuszach.
 - Większe ryzyko błędów.
 - Potrzebuje więcej kodu i staranności przy implementacji.
+
+# 4. Równoległe przetwarzanie obrazów za pomocą filtrów.
+
+Dla przetwarzania obrazów został stworzone 4 filtry:
+
+## `GrayscaleFilter` 
+Filtr konwertujący obraz do odcieni szarości. Opiera się na percepcji ludzkiego oka, które różnie odbiera kolory — w szczególności:
+- 29,9% czułości na czerwony
+- 58,7% na zielony
+- 11,4% na niebieski
+Na tej podstawie dla każdego piksela obliczana jest wartość nasycenia (tzw. jasność) i ustawiany jest jednolity kolor RGB:
+```csharp
+Color pixelColor = original.GetPixel(x, y);
+int grayValue = (int)(pixelColor.R * 0.299 + pixelColor.G * 0.587 + pixelColor.B * 0.114);
+Color grayColor = Color.FromArgb(grayValue, grayValue, grayValue);
+result.SetPixel(x, y, grayColor);
+
+```
+
+## `NegativeFilter` 
+Każdy piksel jest „negowany”, czyli jego kolor jest odwracany poprzez odjęcie wartości każdego kanału od 255:
+```csharp
+Color pixelColor = original.GetPixel(x, y);
+Color negativeColor = Color.FromArgb(255 - pixelColor.R, 255 - pixelColor.G, 255 - pixelColor.B);
+result.SetPixel(x, y, negativeColor);
+
+```
+
+## `ThresholdFilter` 
+Filtr progowy. Działa podobnie jak `GrayscaleFilter`, jednak po obliczeniu wartości jasności, porównuje ją z określonym progiem (`threshold`). Piksele poniżej progu ustawiane są na czarne, a powyżej – na białe:
+```csharp
+Color pixelColor = original.GetPixel(x, y);
+int grayValue = (int)(pixelColor.R * 0.299 + pixelColor.G * 0.587 + pixelColor.B * 0.114);
+Color thresholdColor = grayValue < threshold ? Color.Black : Color.White;
+result.SetPixel(x, y, thresholdColor);
+
+```
+
+## `EdgeDetectionFilter` 
+Ten filtr służy do wykrywania krawędzi w obrazie z wykorzystaniem operatora Sobela. W pierwszym kroku obraz jest przekształcany do skali szarości przy użyciu wcześniej zdefiniowanego filtra `GrayscaleFilter`.
+
+Następnie wykorzystywane są dwie macierze konwolucyjne (maski Sobela), które badają zmiany intensywności jasności w kierunku poziomym (X) oraz pionowym (Y):
+```csharp
+Bitmap gray = GrayscaleFilter(original);
+
+int[,] gx = new int[,]
+{
+  { 1, 0, -1 },
+  { 2, 0, -2 },
+  { 1, 0, -1 }
+};
+
+int[,] gy = new int[,]
+{
+  { 1, 2, 1 },
+  { 0, 0, 0 },
+  { -1, -2, -1 }
+};
+```
+Dla każdego piksela (z wyłączeniem krawędzi obrazu) wykonywany jest splot — czyli przemnożenie okna 3x3 otaczającego dany piksel przez obie maski (osobno dla X i Y). Obliczany jest gradient — czyli intensywność zmiany jasności. Im wyższy gradient, tym większa szansa, że w tym miejscu znajduje się krawędź:
+```csharp
+for (int y = 1; y < gray.Height - 1; y++)
+{
+  for (int x = 1; x < gray.Width - 1; x++)
+  {
+    int pixelX = 0;
+    int pixelY = 0;
+    for (int j = -1; j <= 1; j++)
+    {
+      for (int i = -1; i <= 1; i++)
+      {
+        int grayValue = gray.GetPixel(x + i ,y + j).R;
+        pixelX += gx[j + 1, i + 1] * grayValue;
+        pixelY += gy[j + 1, i + 1] * grayValue;
+      }
+    }
+    int edge = Math.Min(255,(int)Math.Sqrt(pixelX * pixelX + pixelY * pixelY));
+    Color edgeColor = Color.FromArgb(edge, edge, edge);
+    result.SetPixel(x, y, edgeColor);
+  }
+}
+```
