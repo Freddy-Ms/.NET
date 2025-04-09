@@ -228,3 +228,6 @@ for (int y = 1; y < gray.Height - 1; y++)
   }
 }
 ```
+# Wygląd aplikacji wraz z przykładem
+
+![488620693_1859857814775472_5776690384178029046_n](https://github.com/user-attachments/assets/ceed700e-2713-429a-9745-77a1991d197f)
