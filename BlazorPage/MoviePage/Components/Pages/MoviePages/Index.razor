@@ -1,0 +1,133 @@
+﻿@page "/movies"
+@using Microsoft.EntityFrameworkCore
+@using MyWebPage.Components
+@using MoviePage.Data
+@using Microsoft.AspNetCore.Authorization
+@inject IDbContextFactory<MoviePage.Data.ApplicationDbContext> DbFactory
+
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+@attribute [Authorize]
+
+<PageTitle>Movies</PageTitle>
+
+<h1>Movies List</h1>
+
+<p>
+    <a href="/movies/create">Create New</a>
+</p>
+
+
+<!-- Tabela filmów -->
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>
+                <button class="btn btn-link" @onclick="SortByTitle">
+                    Title
+                </button>
+            </th>
+            <th>
+                <button class="btn btn-link" @onclick="SortByReleaseDate">
+                    Release Date
+                </button>
+            </th>
+            <th>
+                <button class="btn btn-link" @onclick="SortByRating">
+                    Rating
+                </button>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in movies)
+        {
+
+            <tr>
+                <td>@movie.Title</td>
+                <td>@movie.ReleaseDate?.ToShortDateString()</td>
+                <td>@movie.Rate</td>
+                <td>
+                    <a href="@($"/movies/edit?id={movie.Id}")">Edit</a> |
+                    <a href="@($"/movies/details?id={movie.Id}")">Details</a> |
+                    <a href="@($"/movies/delete?id={movie.Id}")">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    private ApplicationDbContext context = default!;
+    private List<Movie> movies = new List<Movie>();
+
+    private bool isTitleAscending = false;
+    private bool isReleaseDateAscending = false;
+    private bool isRatingDescending = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        context = DbFactory.CreateDbContext();
+        movies = context.Movie.ToList();
+    }
+
+    private void SortByTitle()
+    {
+        isReleaseDateAscending = false;
+        isRatingDescending = false;
+
+        if (isTitleAscending)
+        {
+            movies = movies.OrderByDescending(m => m.Title).ToList();
+        }
+        else
+        {
+            movies = movies.OrderBy(m => m.Title).ToList();
+        }
+
+        isTitleAscending = !isTitleAscending;
+
+    }
+
+    private void SortByReleaseDate()
+    {
+        isTitleAscending = false;
+        isRatingDescending = false;
+
+        if (isReleaseDateAscending)
+        {
+            movies = movies.OrderBy(m => m.ReleaseDate).ToList();
+        }
+        else
+        {
+            movies =  movies.OrderByDescending(m => m.ReleaseDate).ToList();
+        }
+
+        isReleaseDateAscending = !isReleaseDateAscending;
+
+    }
+
+    private void SortByRating()
+    {
+        isTitleAscending = false;
+        isReleaseDateAscending = false;
+
+        if (isRatingDescending)
+        {
+            movies =  movies.OrderBy(m => m.Rate).ToList();
+        }
+        else
+        {
+            movies = movies.OrderByDescending(m => m.Rate).ToList();
+        }
+
+        isRatingDescending = !isRatingDescending;
+
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
+
